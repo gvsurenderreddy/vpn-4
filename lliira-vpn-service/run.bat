@@ -1,0 +1,1 @@
+java -jar target/lliira-vpn-service-jar-with-dependencies.jar

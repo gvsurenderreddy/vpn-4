@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="vpnModel" class="net.lliira.vpn.model.VpnModel" />
+
+	<bean id="textFactory" class="net.lliira.vpn.model.TextFactory" />
+
+  <bean id="preferenceFactory" class="net.lliira.vpn.model.pref.DefaultPreferenceFactory">
+  </bean>
+
+	<bean id="emailFactory" class="net.lliira.vpn.model.email.DefaultEmailFactory">
+		<property name="properties" value="#{vpnModel.properties}" />
+	</bean>
+
+	<bean id="userFactory" class="net.lliira.vpn.model.user.DefaultUserFactory">
+		<property name="textFactory" ref="textFactory" />
+		<property name="emailFactory" ref="emailFactory" />
+	</bean>
+
+	<bean id="radiusFactory" class="net.lliira.vpn.model.radius.DefaultRadiusFactory">
+		<property name="userFactory" ref="userFactory" />
+	</bean>
+
+	<bean id="accountFactory" class="net.lliira.vpn.model.account.DefaultAccountFactory">
+		<property name="preferenceFactory" ref="preferenceFactory" />
+	</bean>
+
+	<bean id="adminFactory" class="net.lliira.vpn.model.admin.DefaultAdminFactory">
+		<property name="textFactory" ref="textFactory" />
+		<property name="emailFactory" ref="emailFactory" />
+	</bean>
+
+	<bean id="productFactory" class="net.lliira.vpn.model.product.DefaultProductFactory">
+		<property name="properties" value="#{vpnModel.properties}" />
+		<property name="textFactory" ref="textFactory" />
+	</bean>
+
+	<bean id="purchaseFactory" class="net.lliira.vpn.model.purchase.DefaultPurchaseFactory">
+		<property name="textFactory" ref="textFactory" />
+		<property name="userFactory" ref="userFactory" />
+    <property name="emailFactory" ref="emailFactory" />
+	</bean>
+
+</beans>

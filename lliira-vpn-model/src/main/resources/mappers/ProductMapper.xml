@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lliira.vpn.model.dao.mapper.ProductMapper">
+  
+  <cache />
+
+  <resultMap type="Product" id="ProductMap">
+    <result property="id" column="product_id" />
+    <result property="available" column="available" />
+    <result property="bandwidth" column="bandwidth" />
+    <result property="duration" column="duration" />
+    <result property="description" column="description" />
+    <result property="price" column="price" />
+  </resultMap>
+
+  <select id="selectAvailableProducts" resultMap="ProductMap">
+    <![CDATA[
+        SELECT p.* FROM ${schema}products p WHERE p.available = 1
+    ]]>
+  </select>
+
+  <select id="selectProduct" parameterType="int" resultMap="ProductMap">
+    <![CDATA[
+        SELECT p.* FROM ${schema}products p WHERE p.product_id = #{id}
+    ]]>
+  </select>
+
+  <select id="selectAllProducts" resultMap="ProductMap">
+    <![CDATA[
+        SELECT p.* FROM ${schema}products p
+    ]]>
+  </select>
+  
+  <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true"
+    keyProperty="id" keyColumn="product_id">
+    <![CDATA[
+        INSERT INTO ${schema}products 
+               (bandwidth, duration, price, available, description)
+        VALUES (#{bandwidth}, #{duration}, #{price}, #{available}, #{description})
+    ]]>
+  </insert>
+
+  <update id="updateProduct" parameterType="Product">
+    <![CDATA[
+        UPDATE ${schema}products
+        SET bandwidth = #{bandwidth}, duration = #{duration}, price = #{price}, 
+            available = #{available}, description = #{description}
+        WHERE product_id = #{id}
+    ]]>
+  </update>
+
+  <delete id="deleteProduct" parameterType="int">
+  <![CDATA[
+    DELETE FROM ${schema}products WHERE product_id = #{id}
+  ]]>
+  </delete>
+
+</mapper>

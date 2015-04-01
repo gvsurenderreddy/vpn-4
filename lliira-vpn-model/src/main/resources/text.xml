@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="test">
+  <![CDATA[This is a test message. ]]>
+	</entry>
+	<entry key="email-invalid">
+	<![CDATA[邮件地址不合法。 ]]>
+	</entry>
+	<entry key="email-duplicated">
+  <![CDATA[该登录邮件已被使用，请直接登录，或选用其他邮件注册。]]>
+	</entry>
+	<entry key="email-not-found">
+  <![CDATA[邮件地址不存在。]]>
+	</entry>
+  <entry key="referral-invalid">
+  <![CDATA[推荐人无效。]]>
+  </entry>
+	<entry key="password-invalid">
+  <![CDATA[密码不能为空。]]>
+	</entry>
+	<entry key="password-not-match">
+  <![CDATA[密码确认与输入的密码不匹配。]]>
+	</entry>
+	<entry key="password-old-invalid">
+  <![CDATA[现有密码输入错误。]]>
+	</entry>
+	<entry key="activation-code-invalid">
+  <![CDATA[激活码无效，请重新注册用户。]]>
+	</entry>
+	<entry key="login-invalid">
+  <![CDATA[登录邮件或登录密码不匹配。]]>
+	</entry>
+  <entry key="user-not-activated">
+  <![CDATA[用户还未激活，请检查您的邮件，并按照收到的激活邮件中的指示激活您的帐户。]]>
+  </entry>
+  <entry key="user-activated">
+  <![CDATA[您的帐户已被激活，再次激活无效。]]>
+  </entry>
+  <entry key="bandwidth-invalid">
+  <![CDATA[无效产品带宽。产品带宽必须大于或等于1（单位：M）。]]>
+  </entry>
+  <entry key="duration-invalid">
+  <![CDATA[无效产品时效。产品时效必须大于或等于1（单位：月）。]]>
+  </entry>
+  <entry key="price-invalid">
+  <![CDATA[无效产品价格。产品价格必须大于或等于1.00（单位：元）。]]>
+  </entry>
+  <entry key="anouncement-invalid">
+  <![CDATA[Anouncement email doesn't exist。]]>
+  </entry>
+</properties>

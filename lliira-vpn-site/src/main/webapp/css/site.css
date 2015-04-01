@@ -1,0 +1,97 @@
+body, td, th { font-size:11pt; }
+body { margin:0px; background:url(../images/main-bg.png) center top repeat-x; background-color:#cedbde;  }
+h1, h2, h3, h4 { text-align: center; }
+p { text-indent: 2em; }
+table { border-collapse:collapse; } 
+td, th {border: 1px dotted #999999; }
+form .label {font-style:normal; color: blue; font-weight: bold; }
+form .text-input { height: 20px; width: 97%; }
+form .submit { margin: 5px; }
+.button { font-size: 10pt; }
+.disabled span {color:#999999;}
+
+.screen-center {position:absolute; top:50%; text-align:center; width:100%;}
+
+#site-content { margin:0px auto; max-width:1024px; background-color:white; }
+#site-header, #site-footer { background-color:#cedbde; clear:both; }
+
+#site-title { font-weight:bolder; font-size:20pt; text-decoration: none; line-height:52px; color:black; }
+.user-control { float:right; white-space: nowrap; margin:2px 0px; padding:3px 2px 3px 3px; }
+.user-control .text-input { height:14px; }
+.user-control .email { width:150px; }
+.user-control .password { width:90px; }
+
+#site-footer { text-align:center; padding: 5px; }
+.apy-link { display:none; }
+
+.server-info { padding: 0px 5px; margin:20px; }
+.server-info .highlight {color: red; font-weight: bold; }
+
+.form-panel, .large-panel { margin:20px auto; padding: 5px 10px; }
+.form-panel { width: 400px; }
+.large-panel { width: 800px; }
+
+
+.row { line-height:35px; background:url(../images/row-bg.png) center bottom repeat-x; }
+
+.tooltip { font-size: smaller; margin: 2px 2px 2px 2em; color:#666666; }
+
+.register { float: right; margin: 10px; padding: 5px 10px; width: 300px; }
+.register .label { margin: 10px 0px 3px 0px; font-size: 12pt;  }
+.register .text-input { font-size: 16pt; }
+.register .buttons { margin: 10px; text-align:center; }
+.register #register_referral { background-color:#F6F6F6; }
+
+.intro { margin: 80px auto; text-align: center; }
+.intro .slogan { font-weight: bold; font-size:20pt; color:blue; }
+
+.section {
+  clear: both;
+}
+
+.login { float: left; margin: 20px 50px 20px 20px; padding: 5px; width:300px; }
+.login .label { margin: 10px 0px 3px 0px; font-size: 12pt; font-weight: bold; }
+.login .text-input { height: 20px; width: 290px; font-size: 16pt; }
+.login .tooltip { font-size: smaller; margin-left: 2em; color:#999999; }
+.login .buttons { margin: 10px 0px; text-align:right; }
+.login .more-option { text-align:right; margin: 10px 0px; }
+
+.help {
+  padding: 10px; overflow:auto;
+}
+
+.user-info .password { margin: 10px 50px; padding: 5px; width: 220px; }
+
+.referral { margin: 10px; padding:5px; }
+.referral .link { width:99%; height:25px; color:blue; background-color:#F0F0F0; font-size:11pt; }
+
+.usages { float:right; width: 50%; margin: 0px 10px; padding:5px; }
+.usages .usage table { width:100%; }
+.usages .usage .period { text-align:center; }
+.usages .usage .used-bandwidth { text-align:right; }
+.usages .usage .session-time { text-align:right; }
+
+.purchases table { margin:3px auto;}
+.purchases th, .purchases td { padding:0px 10px; text-align:right; }
+
+
+.account-info { overflow: auto; margin:10px; padding:5px; }
+.account-info .buttons, .account-info .total-referral, .account-info .remain-bandwidth  {float:right; width:50%; }
+.account-info .buttons {text-align:right;}
+
+.purchases { margin:10px; width:"50%"; }
+
+.download { width: 600px; margin:10px auto; padding:0px 5px 5px 5px; }
+.download li { margin: 10px;}
+
+.admin-tool {margin:5px;}
+
+table.products {width:100%;}
+table.products .control {display:inline-block;}
+
+.warning {color:#CC3300;font-weight:bold;}
+
+.purchase .alipay {text-align:center;}
+/*.purchase .alipay .noreferrer { display:none; }*/
+
+.purchase .product {text-align:center; font-weight:bold; }

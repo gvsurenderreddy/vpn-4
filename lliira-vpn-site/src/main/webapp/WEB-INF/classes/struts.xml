@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.objectFactory.spring.autoWire" value="name" />
+
+	<package name="vpn-base" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="vpnModel"
+				class="net.lliira.vpn.site.interceptor.VpnModelInterceptor" />
+
+			<interceptor-stack name="vpnStack">
+				<interceptor-ref name="vpnModel" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="vpnStack"></default-interceptor-ref>
+
+		<global-results>
+			<result name="home" type="redirectAction">home</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+
+		<action name="home" class="net.lliira.vpn.site.action.HomeAction">
+			<result name="success">/WEB-INF/jsp/home.jsp</result>
+		</action>
+
+		<action name="login" class="net.lliira.vpn.site.action.LoginAction">
+			<result name="input">/WEB-INF/jsp/login.jsp</result>
+			<result name="success" type="redirectAction">account</result>
+		</action>
+
+		<action name="register" class="net.lliira.vpn.site.action.RegisterAction">
+			<result name="input" type="redirectAction">home</result>
+			<result name="success">/WEB-INF/jsp/register-success.jsp</result>
+		</action>
+
+		<action name="products" class="net.lliira.vpn.site.action.ProductsAction">
+			<result name="success">/WEB-INF/jsp/products.jsp</result>
+		</action>
+
+		<action name="download" class="net.lliira.vpn.site.action.DownloadAction">
+			<result name="success">/WEB-INF/jsp/download.jsp</result>
+		</action>
+
+		<action name="help" class="net.lliira.vpn.site.action.HelpAction">
+			<result name="success">/WEB-INF/jsp/help/index.jsp</result>
+			<result name="os">/WEB-INF/jsp/help/${os}.jsp</result>
+		</action>
+
+		<action name="forgetPassword" class="net.lliira.vpn.site.action.ForgetPasswordAction">
+			<result name="input">/WEB-INF/jsp/forget-password.jsp</result>
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+		<action name="activate" class="net.lliira.vpn.site.action.ActivateAction">
+			<result name="success">/WEB-INF/jsp/activate-success.jsp</result>
+			<result name="failure">/WEB-INF/jsp/activate-failure.jsp</result>
+			<exception-mapping result="failure"
+				exception="net.lliira.vpn.model.registration.RegistrationException" />
+		</action>
+
+		<action name="sendActivationCode"
+			class="net.lliira.vpn.site.action.SendActivationCodeAction">
+			<result name="input">/WEB-INF/jsp/activate-code.jsp</result>
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="secure" extends="vpn-base">
+
+		<interceptors>
+			<interceptor name="authentication"
+				class="net.lliira.vpn.site.interceptor.AuthenticationInterceptor" />
+
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="vpnStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<action name="logout" class="net.lliira.vpn.site.action.secure.LogoutAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success" type="redirectAction">home</result>
+		</action>
+
+		<action name="profile" class="net.lliira.vpn.site.action.secure.ProfileAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success">/WEB-INF/jsp/secure/profile.jsp</result>
+		</action>
+
+		<action name="updateProfile"
+			class="net.lliira.vpn.site.action.secure.UpdateProfileAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success" type="redirectAction">profile</result>
+			<result name="input">/WEB-INF/jsp/secure/profile.jsp</result>
+		</action>
+
+		<action name="updatePassword"
+			class="net.lliira.vpn.site.action.secure.UpdatePasswordAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success" type="redirectAction">profile</result>
+			<result name="input">/WEB-INF/jsp/secure/profile.jsp</result>
+		</action>
+
+		<action name="account" class="net.lliira.vpn.site.action.secure.AccountAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success">/WEB-INF/jsp/secure/account.jsp</result>
+		</action>
+
+		<action name="purchase" class="net.lliira.vpn.site.action.secure.PurchaseAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success">/WEB-INF/jsp/secure/purchase.jsp</result>
+		</action>
+
+		<action name="purchaseRedirect" class="net.lliira.vpn.site.action.secure.PurchaseAction">
+			<interceptor-ref name="secureStack" />
+			<result name="success">/WEB-INF/jsp/secure/purchase-redirect.jsp
+			</result>
+		</action>
+
+	</package>
+
+	<package name="admin" extends="secure">
+
+		<interceptors>
+			<interceptor name="admin"
+				class="net.lliira.vpn.site.interceptor.AdminInterceptor" />
+
+			<interceptor-stack name="adminStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="admin" />
+				<interceptor-ref name="vpnStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<action name="admin" class="net.lliira.vpn.site.action.DefaultAction">
+			<interceptor-ref name="adminStack" />
+			<result name="success">/WEB-INF/jsp/admin/admin.jsp</result>
+		</action>
+
+		<action name="anounce"
+			class="net.lliira.vpn.site.action.admin.AnouncementAction">
+			<interceptor-ref name="adminStack" />
+			<result name="input">/WEB-INF/jsp/admin/anounce.jsp</result>
+			<result name="success">/WEB-INF/jsp/admin/anounce-success.jsp</result>
+		</action>
+
+		<action name="manageProducts"
+			class="net.lliira.vpn.site.action.admin.ManageProductsAction">
+			<interceptor-ref name="adminStack" />
+			<result name="success">/WEB-INF/jsp/admin/manage-products.jsp</result>
+		</action>
+
+		<action name="showProduct"
+			class="net.lliira.vpn.site.action.admin.ShowProductAction">
+			<interceptor-ref name="adminStack" />
+			<result name="success">/WEB-INF/jsp/admin/save-product.jsp</result>
+		</action>
+
+		<action name="saveProduct"
+			class="net.lliira.vpn.site.action.admin.SaveProductAction">
+			<interceptor-ref name="adminStack" />
+			<result name="input">/WEB-INF/jsp/admin/save-product.jsp</result>
+			<result name="success" type="redirectAction">manageProducts</result>
+		</action>
+
+		<action name="deleteProduct" method="deleteProduct"
+			class="net.lliira.vpn.site.action.admin.ManageProductsAction">
+			<interceptor-ref name="adminStack" />
+			<result name="success" type="redirectAction">manageProducts</result>
+		</action>
+
+		<action name="showPurchase"
+			class="net.lliira.vpn.site.action.admin.ShowPurchaseAction">
+			<interceptor-ref name="adminStack" />
+			<result name="success">/WEB-INF/jsp/admin/save-purchase.jsp</result>
+		</action>
+
+		<action name="savePurchase"
+			class="net.lliira.vpn.site.action.admin.SavePurchaseAction">
+			<interceptor-ref name="adminStack" />
+			<result name="input">/WEB-INF/jsp/admin/save-purchase.jsp</result>
+			<result name="success">/WEB-INF/jsp/message.jsp</result>
+		</action>
+
+	</package>
+
+</struts>
+

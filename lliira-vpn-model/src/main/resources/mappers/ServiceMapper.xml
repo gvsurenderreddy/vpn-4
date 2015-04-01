@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lliira.vpn.model.dao.mapper.ServiceMapper">
+
+	<select id="selectMinTime" resultType="date">
+    <![CDATA[
+    SELECT min(acctstarttime) AS min_time FROM radacct
+    ]]>
+	</select>
+
+	<update id="createDetails" parameterType="TimeRange">
+    <![CDATA[
+    CREATE TABLE IF NOT EXISTS usage_details_${fromMonth} (
+		  account_id bigint(21) NOT NULL,
+		  acctsessionid varchar(64) NOT NULL,
+		  acctuniqueid varchar(32) NOT NULL,
+		  username varchar(64) NOT NULL,
+		  nasipaddress varchar(15) NOT NULL,
+		  nasportid varchar(15) default NULL,
+		  nasporttype varchar(32) default NULL,
+		  acctstarttime datetime NULL default NULL,
+		  acctstoptime datetime NULL default NULL,
+		  acctsessiontime BIGINT(20) default NULL,
+		  acctauthentic varchar(32) default NULL,
+		  acctinputoctets bigint(20) default NULL,
+		  acctoutputoctets bigint(20) default NULL,
+		  calledstationid varchar(50) NOT NULL default '',
+		  callingstationid varchar(50) NOT NULL default '',
+		  acctterminatecause varchar(32) NOT NULL default '',
+		  framedipaddress varchar(15) NOT NULL default '',
+		  PRIMARY KEY  (account_id),
+		  KEY username (username),
+		  KEY framedipaddress (framedipaddress),
+		  KEY acctsessionid (acctsessionid),
+		  KEY acctsessiontime (acctsessiontime),
+		  KEY acctuniqueid (acctuniqueid),
+		  KEY acctstarttime (acctstarttime),
+		  KEY acctstoptime (acctstoptime),
+		  KEY nasipaddress (nasipaddress)
+    )
+    ]]>
+	</update>
+
+	<insert id="insertDetails" parameterType="TimeRange">
+    <![CDATA[
+    INSERT INTO usage_details_${fromMonth} (account_id, acctsessionid, 
+           acctuniqueid, username, nasipaddress, nasportid, nasporttype, 
+           acctstarttime, acctstoptime, acctsessiontime, acctauthentic, 
+           acctinputoctets, acctoutputoctets, calledstationid, callingstationid, 
+           acctterminatecause, framedipaddress)
+    SELECT radacctid AS account_id, acctsessionid, acctuniqueid, username, 
+           nasipaddress, nasportid, nasporttype, acctstarttime, acctstoptime, 
+           acctsessiontime, acctauthentic, acctinputoctets, acctoutputoctets, 
+           calledstationid, callingstationid, acctterminatecause, framedipaddress
+    FROM radacct
+    WHERE acctstarttime >= #{from} AND acctstarttime < #{to}
+    ]]>
+	</insert>
+
+	<delete id="deleteDetails" parameterType="TimeRange">
+    <![CDATA[
+    DELETE FROM radacct WHERE acctstarttime >= #{from} AND acctstarttime < #{to}
+    ]]>
+	</delete>
+	
+	<update id="optimizeDetails">
+    <![CDATA[
+    OPTIMIZE TABLE radacct
+    ]]>
+	</update>
+
+	<insert id="insertUsage" parameterType="TimeRange">
+    <![CDATA[
+    INSERT INTO usages (user_id, year, month, session_time, upload, download)
+    SELECT u.user_id, year(#{from}) AS `year`, month(#{from}) AS `month`,
+             sum(a.acctsessiontime) AS session_time,
+             sum(a.AcctOutputOctets) AS download, 
+             sum(a.AcctInputOctets) AS upload
+      FROM usage_details_${fromMonth} a, users u
+      WHERE a.username = u.email AND u.activated = 1
+      GROUP BY u.user_id
+    ]]>
+	</insert>
+
+</mapper>

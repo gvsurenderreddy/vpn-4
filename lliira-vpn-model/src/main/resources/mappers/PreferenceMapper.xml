@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lliira.vpn.model.dao.mapper.PreferenceMapper">
+    
+  <cache />
+  
+  <resultMap type="Preference" id="PreferenceMap">
+    <constructor>
+      <idArg column="pref_name" javaType="string" />
+    </constructor>
+    <result property="value" column="pref_value" />
+  </resultMap>
+  
+  <select id="selectPreferences" resultMap="PreferenceMap">
+    <![CDATA[
+      SELECT pref_name, pref_value FROM preferences
+    ]]>
+  </select>
+  
+  <select id="selectPreference" parameterType="string" resultMap="PreferenceMap">
+    <![CDATA[
+      SELECT pref_name, pref_value FROM preferences WHERE pref_name = #{name}
+    ]]>
+  </select>
+
+  <delete id="deletePreference" parameterType="string">
+    <![CDATA[
+      DELETE FROM preferences WHERE pref_name = #{name}
+    ]]>
+  </delete>
+
+  <insert id="insertPreference" parameterType="Preference">
+    <![CDATA[
+      INSERT INTO preferences (pref_name, pref_value) VALUES (#{name}, #{value})
+    ]]>
+  </insert>
+
+  <update id="updatePreference" parameterType="Preference">
+    <![CDATA[
+      UPDATE preferences SET pref_value = #{value} WHERE pref_name = #{name}
+    ]]>
+  </update>
+
+</mapper>

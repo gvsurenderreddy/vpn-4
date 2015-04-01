@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties>
+		<property name="schema" value="radius." />
+	</properties>
+
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="net.lliira.vpn.model.user.User" alias="User" />
+		<typeAlias type="net.lliira.vpn.model.user.UserLog" alias="UserLog" />
+		<typeAlias type="net.lliira.vpn.model.user.Server" alias="Server" />
+		<typeAlias type="net.lliira.vpn.model.radius.EmailMap"
+			alias="EmailMap" />
+		<typeAlias type="net.lliira.vpn.model.product.Product"
+			alias="Product" />
+		<typeAlias type="net.lliira.vpn.model.purchase.Purchase"
+			alias="Purchase" />
+		<typeAlias type="net.lliira.vpn.model.account.Usage" alias="Usage" />
+		<typeAlias type="net.lliira.vpn.model.account.TimeRange"
+			alias="TimeRange" />
+		<typeAlias type="net.lliira.vpn.model.account.UserTimeRange"
+			alias="UserTimeRange" />
+		<typeAlias type="net.lliira.vpn.model.pref.Preference"
+			alias="Preference" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${vpndb.driver}" />
+				<property name="url" value="${vpndb.connection}" />
+				<property name="username" value="${vpndb.login}" />
+				<property name="password" value="${vpndb.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="mappers/UserMapper.xml" />
+		<mapper resource="mappers/AdminMapper.xml" />
+		<mapper resource="mappers/RadiusMapper.xml" />
+		<mapper resource="mappers/ProductMapper.xml" />
+		<mapper resource="mappers/AccountMapper.xml" />
+		<mapper resource="mappers/PreferenceMapper.xml" />
+		<mapper resource="mappers/ServiceMapper.xml" />
+		<mapper resource="mappers/PurchaseMapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lliira.vpn.model.dao.mapper.AccountMapper">
+  
+  <resultMap type="Usage" id="UsageMap">
+    <constructor>
+      <idArg column="user_id" javaType="_int" />
+    </constructor>
+    <result property="year" column="year" />
+    <result property="month" column="month" />
+    <result property="sessionTime" column="session_time" />
+    <result property="download" column="download" />
+    <result property="upload" column="upload" />
+  </resultMap>
+    
+  <select id="selectEffectiveBandwidth" parameterType="int" resultType="long">
+    <![CDATA[
+      SELECT sum(bandwidth) * 1000000 FROM bandwidth_all WHERE user_id = #{userId}
+    ]]>
+  </select>
+
+  <select id="selectTotalReferrals" parameterType="int" resultType="int">
+    <![CDATA[
+      SELECT count(*) FROM users WHERE referral = #{userId} AND activated = true
+    ]]>
+  </select>
+
+  <select id="selectEffectiveReferrals" parameterType="int" resultType="int">
+    <![CDATA[
+      SELECT min(referrals) AS referrals 
+      FROM (SELECT referrals FROM referral_effective WHERE user_id = #{userId}
+            UNION
+            SELECT pref_value * 1 AS referrals FROM preferences 
+            WHERE pref_name = 'referral-max'
+           ) t
+    ]]>
+  </select>
+
+  <select id="selectUsers" parameterType="TimeRange" resultType="int">
+    <![CDATA[
+      SELECT DISTINCT u.user_id FROM users u, radacct a
+      WHERE u.email = a.username
+        AND a.acctstarttime >= #{from} AND a.acctstarttime < #{to}
+    ]]>
+  </select>
+  
+  <select id="selectPreviousUsages" parameterType="int" resultMap="UsageMap">
+    <![CDATA[
+      SELECT r.user_id, s.year, s.month, s.session_time, s.download, s.upload
+      FROM users r, usages s
+      WHERE r.user_id = s.user_id AND r.user_id = #{userId}
+      ORDER BY s.year DESC, s.month DESC
+    ]]>
+  </select>
+  
+  <select id="selectCurrentUsage" parameterType="int" resultMap="UsageMap">
+    <![CDATA[
+      SELECT u.user_id, year(now()) AS `year`, month(now()) AS `month`,
+             sum(acctsessiontime) AS session_time,
+             sum(AcctOutputOctets) AS download, sum(AcctInputOctets) AS upload
+      FROM radacct r, users u
+      WHERE r.username = u.email AND u.user_id = #{userId}
+        AND acctstarttime >= timestamp(concat(year(now()), '-', month(now()), '-1 00:00:00'))
+    ]]>
+  </select>
+
+</mapper>

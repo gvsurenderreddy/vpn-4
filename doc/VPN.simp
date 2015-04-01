@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="5.92" multi-file="no">
+  <meta>
+    <name>VPN</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <management>
+    <persons>
+      <person id="P86835f925894422089063a90abc81dfb">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <tasks />
+    <requirements />
+    <issues />
+    <to-dos />
+  </management>
+  <glossary />
+  <types>
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types />
+  </types>
+  <filters />
+  <items />
+  <models>
+    <model id="p422652766742783852" name="User Interface" type="" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>07/16/2012 08:15:10</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="user-interface" id="p315704306144794352" name="home" order-index="1" show-nullability="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>07/16/2012 08:15:10</creation-date>
+          <change-date>07/16/2012 08:18:10</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="ddip315704306144794352_453008221296580565" cid="OBJ001" type="simple-ui-object" name="VPN Host" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P86835f925894422089063a90abc81dfb" creation-date="07/16/2012 08:17:07">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <ui-object type="label" />
+          </item>
+          <item id="ddip315704306144794352_187189658816176108" cid="OBJ002" type="simple-ui-object" name="邮件：" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P86835f925894422089063a90abc81dfb" creation-date="07/16/2012 08:17:50">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <ui-object type="label" />
+          </item>
+          <item id="ddip315704306144794352_128529153787686720" cid="OBJ003" type="simple-ui-object" name="email@company.com" style-class="" is-abstract="false" is-root="false" is-leaf="false" is-active="false" creator="P86835f925894422089063a90abc81dfb" creation-date="07/16/2012 08:18:10">
+            <stereotypes />
+            <tagged-values />
+            <associated-diagrams />
+            <owned-items />
+            <style class="default" />
+            <ui-object type="text-box" />
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di847810879846267141" iid="01294b083c3a42b1bfe1a64796c90573" name="Element1" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="07/16/2012 08:16:31" order-index="0" type="drawing-shape">
+            <layout ax="-50" ay="-50" awidth="510" aheight="50" x="-50" y="-50" width="510" height="50" />
+            <drawing-shape type="Rectangle" />
+            <style class="default" />
+          </item>
+          <item id="ddip315704306144794352_453008221296580565" iid="94f460e9f31840e09e46330bdc3b2ec5" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="07/16/2012 08:17:07" order-index="1" type="simple-ui-object">
+            <layout ax="-50" ay="-50" awidth="150" aheight="20" x="-50" y="-50" width="0" height="0" />
+          </item>
+          <item id="ddip315704306144794352_187189658816176108" iid="e159469b4ff741c4988185f7807f8dbc" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="07/16/2012 08:17:50" order-index="2" type="simple-ui-object">
+            <layout ax="170" ay="-50" awidth="50" aheight="20" x="170" y="-50" width="50" height="0" />
+          </item>
+          <item id="ddip315704306144794352_128529153787686720" iid="1fcca8786dea4a77b70df6dd0fac27a5" show-cid="false" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" creation-date="07/16/2012 08:18:10" order-index="3" type="simple-ui-object">
+            <layout ax="243" ay="-43" awidth="150" aheight="20" x="243" y="-43" width="0" height="0" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+  <documents />
+  <document-templates />
+</sim-project>

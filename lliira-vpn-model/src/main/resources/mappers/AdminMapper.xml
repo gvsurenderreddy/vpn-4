@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lliira.vpn.model.dao.mapper.AdminMapper">
+  
+  <select id="selectAllEmails" resultType="string">
+    <![CDATA[
+        SELECT u.email FROM ${schema}users u
+    ]]>
+  </select>
+  
+  <select id="selectActivatedEmails" resultType="string">
+    <![CDATA[
+        SELECT u.email FROM ${schema}users u WHERE u.activated = TRUE
+    ]]>
+  </select>
+  
+  <select id="selectUnactivatedEmails" resultType="string">
+    <![CDATA[
+        SELECT u.email FROM ${schema}users u WHERE u.activated = FALSE
+    ]]>
+  </select>
+
+  <select id="selectActiveEmails" resultType="string">
+    <![CDATA[
+        SELECT u.email FROM users u, `radpostauth` rpa 
+        WHERE u.email = rpa.username
+      UNION
+        SELECT u.email FROM users u
+        WHERE u.activated = false 
+           OR u.last_login_time > '2012-08-02 21:30:30'
+    ]]>
+  </select>
+  
+  <select id="selectNewEmails" resultType="string">
+    <![CDATA[
+        SELECT u.email FROM ${schema}users u 
+        WHERE u.registered_time >= DATE_SUB(now(), INTERVAL 8 DAY)
+    ]]>
+  </select>
+  
+  <select id="selectCustomEmails" resultType="string">
+    <![CDATA[
+        SELECT c.email FROM ${schema}custom_emails c
+    ]]>
+  </select>
+
+  <update id="makeCheck">
+    <![CDATA[ CALL make_radcheck ]]>
+  </update>
+  
+  <update id="makeReply">
+    <![CDATA[ CALL make_radreply ]]>
+  </update>
+</mapper>
