@@ -438,7 +438,7 @@ CREATE OR REPLACE VIEW reply_timeout AS
   SELECT bp.email AS username, 'Session-Timeout' AS attribute, ':=' AS op, '14400' AS value
   FROM bandwidth_purchased bp
   UNION
-  SELECT u.email AS username, 'Session-Timeout' AS attribute, ':=' AS op, '1800' AS value
+  SELECT u.email AS username, 'Session-Timeout' AS attribute, ':=' AS op, '900' AS value
   FROM users u
   WHERE u.user_id NOT IN (SELECT user_id FROM bandwidth_purchased)
     AND u.activated = true AND u.blocked = false;
